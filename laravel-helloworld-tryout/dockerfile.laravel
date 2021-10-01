@@ -1,0 +1,38 @@
+FROM ubuntu:20.10
+
+# Set default user and workdir
+USER root
+WORKDIR /
+
+# Set DEBIAN_FRONTEND to noninteractive
+ENV DEBIAN_FRONTEND noninteractive
+
+RUN sed -i 's/http:\/\/archive\.ubuntu\.com/http:\/\/ftp\.cuhk\.edu\.hk\/pub\/Linux/g' /etc/apt/sources.list && \
+  sed -i 's/http:\/\/security\.ubuntu\.com/http:\/\/ftp\.cuhk\.edu\.hk\/pub\/Linux/g' /etc/apt/sources.list
+
+RUN apt-get update && \
+  apt-get install -y zsh sudo curl
+
+RUN apt install -y php libapache2-mod-php
+RUN apt install -y zip unzip php-zip php-curl php-mbstring php-xml
+
+RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" && \
+  php composer-setup.php && \
+  php -r "unlink('composer-setup.php');" && \
+  mv composer.phar /usr/local/bin/composer
+
+RUN composer global require laravel/installer
+
+
+
+RUN cd /root &&\
+  composer create-project --prefer-dist laravel/laravel myFstProject && \
+  cd /root/myFstProject && \
+  composer update && \
+  composer i
+
+COPY $PWD/scripts/init_laravel.sh /root/init_laravel.sh
+
+WORKDIR /root
+
+CMD ["php artisan serve --host=0.0.0.0 --port=8000"]
