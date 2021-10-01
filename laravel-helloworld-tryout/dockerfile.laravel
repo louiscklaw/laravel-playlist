@@ -23,14 +23,6 @@ RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" &&
 
 RUN composer global require laravel/installer
 
-
-
-RUN cd /root &&\
-  composer create-project --prefer-dist laravel/laravel myFstProject && \
-  cd /root/myFstProject && \
-  composer update && \
-  composer i
-
 COPY $PWD/scripts/init_laravel.sh /root/init_laravel.sh
 
 WORKDIR /root
