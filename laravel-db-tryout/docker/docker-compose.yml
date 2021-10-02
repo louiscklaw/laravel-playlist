@@ -5,10 +5,12 @@ services:
     build: ./php74-httpd/
     ports:
       - 80:80
+      - 8000:8000
     expose:
       - 80
     volumes:
       - ./web/:/var/www/html
+      - ../laravel_src/:/laravel_src
       - ./php74-httpd/php74.ini:/usr/local/etc/php/php.ini:ro
       # - ./php-httpd/sites:/etc/apache2/sites-available
       - ./php74-httpd/000-default.conf:/etc/apache2/sites-enabled/000-default.conf
