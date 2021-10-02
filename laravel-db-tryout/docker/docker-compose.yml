@@ -3,6 +3,7 @@ services:
   php74-httpd:
     # IMAGE: php:7.4-apache (Dockerfile) 7.4.23
     build: ./php74-httpd/
+    working_dir: /work_dir
     ports:
       - 80:80
       - 8000:8000
@@ -19,12 +20,13 @@ services:
 
   mysql:
     image: mysql:5.7.19
+    working_dir: /work_dir
     ports:
       - 3306:3306
     volumes:
       - ./mysql/db_data/var/lib/mysql/:/var/lib/mysql
       - ./mysql/db_dump/:/db_dump
-      - ./mysql/my.cnf:/etc/mysql/my.cnf
+      # - ./mysql/my.cnf:/etc/mysql/my.cnf
       - ./work_dir/:/work_dir
     environment:
       # these parameter only used for database creation

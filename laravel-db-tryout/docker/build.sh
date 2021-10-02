@@ -15,7 +15,12 @@ set -ex
 #   -p 8000:8000 \
 #   logickee/laravel-helloworld-tryout bash
 
+sudo rm -rf /home/logic/_workspace/laravel-playlist/laravel-db-tryout/docker/mysql/db_data/*
+sudo rm -rf /home/logic/_workspace/laravel-playlist/laravel-db-tryout/docker/mysql/db_dump/*
+
 docker-compose kill
 docker-compose down
 docker-compose build
 docker-compose up -d
+
+docker-compose logs -f mysql

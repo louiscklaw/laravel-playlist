@@ -2,5 +2,7 @@
 
 set -ex
 
-mysql -u root  -f -D project < ./sql/helloworld.sql
-mysql -u root  -f -D project < ./sql/users.sql
+cat  ./sql/helloworld.sql ./sql/users.sql > /tmp/temp.sql
+
+mysql -u root -p -f -D project < /tmp/temp.sql
+# mysql -u root -p -f -D project <
