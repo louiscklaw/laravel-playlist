@@ -4,3 +4,4 @@
 **/mysql/db_data/
 
 **/example-app
+**/*.log
