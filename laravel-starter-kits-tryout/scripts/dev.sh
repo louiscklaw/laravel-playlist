@@ -18,5 +18,5 @@ set -ex
 touch example-app/storage/logs/laravel.log
 
 pushd example-app
-  docker-compose up -d
+  ./vendor/bin/sail up -d
 popd
